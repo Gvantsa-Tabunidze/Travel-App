@@ -1,17 +1,17 @@
-
-import { Box,  TextField } from '@mui/material'
-import React from 'react'
-
 import Header from '@/components/Header';
+import fetchCountries from '@/api/axios/fetchCountries';
+import CountriesFilterWrapper from '@/components/CountriesFilterWrapper';
 
 
 
-const CountriesPage = () => {
+async function CountriesPage () {
+  const result = await fetchCountries()
+
   return (
-    <div style={{width:'100%', display:'flex', msFlexDirection:'column', alignItems:'stretch'}}>
+    <div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'stretch'}}>
       <Header />
-      <Box>
-      </Box>
+      <CountriesFilterWrapper countries={result}/>
+      
     </div>
   )
 }
