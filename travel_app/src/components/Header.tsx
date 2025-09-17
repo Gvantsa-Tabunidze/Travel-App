@@ -1,7 +1,5 @@
 'use client'
 
-
-import React from 'react'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Box, Button, SvgIcon } from '@mui/material'
 
