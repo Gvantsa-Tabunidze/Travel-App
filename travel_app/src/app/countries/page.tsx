@@ -1,6 +1,8 @@
 import Header from '@/components/Header';
 import fetchCountries from '@/api/axios/fetchCountries';
-import CountriesFilterWrapper from '@/components/CountriesFilterWrapper';
+import CountrySidebarWrapper from '@/components/common wrappers/CountrySidebarWrapper';
+
+
 
 
 
@@ -10,7 +12,9 @@ async function CountriesPage () {
   return (
     <div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'stretch'}}>
       <Header />
-      <CountriesFilterWrapper countries={result}/>
+      <CountrySidebarWrapper countries={result} />
+   
+      
       
     </div>
   )

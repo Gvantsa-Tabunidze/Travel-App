@@ -78,12 +78,13 @@ const theme = createTheme({
         text: {
             primary: '#212121',
             secondary: '#616161',
-            disabled: '#e0e0e0',
+            disabled: '#cfd8dc',
             },
         background: {
             default: '#fafafa',
-            paper: '#fff',
+            paper: '#fff'
             },
+            lightGreen:'#e0f2f1'
     }
 })
 

@@ -26,7 +26,7 @@ const FilterDiv= ({searchValue,onSearchChange,region,onRegionChange, favorites,o
             <MenuItem value ={region}>{region}</MenuItem>
           ))}
         </Select>
-       </FormControl>
+      </FormControl>
        <FormControlLabel label='Show favorites' control={
       <Checkbox checked={favorites} onChange={(e)=>onShowFavorites(e.target.checked)} />} />
     </Box>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import FilterDiv from "./FilterDiv"
 import type { CountryType } from "@/interfaces/CountryType"
 import CountryList from "./CountriesList"
+import useSideBarStore from "@/Zustand/SideBarStore"
 
 interface CountriesFilterWrapperProps {
  countries: CountryType[]
@@ -13,6 +14,7 @@ interface CountriesFilterWrapperProps {
 function CountriesFilterWrapper({countries}:CountriesFilterWrapperProps ){
 const searchParams = useSearchParams()
 const router = useRouter()
+const {isOpen} =  useSideBarStore()
 
 //Initialize filters from URL
 const [searchValue, setSearchValue]= useState(searchParams.get('search') || '')
@@ -39,7 +41,7 @@ const filteredData = countries.filter((country:any)=>{
   return(
   <>
    <FilterDiv searchValue={searchValue} onSearchChange={setSearchValue} region={region} onRegionChange={setRegion} favorites={favorites} onShowFavorites={setFavorites} />
-   <CountryList countries={filteredData}/>
+   <CountryList countries={filteredData} sideBarOpen={isOpen}/>
   </>
    
   )
