@@ -14,12 +14,12 @@ const CountriesList = ({countries}:CountriesListProps)=> {
     return(
         <Grid container spacing={4}>
             {countries.map((country)=>
-             <Box sx={{display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <SingleCountry country={country} />
+             <Box key={country.name.common} sx={{display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <SingleCountry  country={country} />
             </Box>
             )}
         </Grid>
     )
 }
-
+ 
 export default CountriesList

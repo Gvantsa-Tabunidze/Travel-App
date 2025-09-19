@@ -30,7 +30,7 @@ useEffect(()=> {
 
 //Filter logic
 const filteredData = countries.filter((country:any)=>{
-  if(searchValue && !country.name.toLowerCase().includes(searchValue.toLowerCase())) return false
+  if(searchValue && !country.name.common.toLowerCase().includes(searchValue.toLowerCase())) return false
   if(region && region !== 'All' && country.region !== region) return false
   if(favorites && !country.favorite) return false
   return true
