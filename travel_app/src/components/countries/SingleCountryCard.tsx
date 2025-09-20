@@ -8,16 +8,24 @@ import Item from "./Item";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CircleIcon from '@mui/icons-material/Circle';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import { forwardRef } from "react";
 
 
 interface SingleCountryProps {
-  country: CountryType
+  country: CountryType,
+  onClick:()=> void,
+  style?: React.CSSProperties;
 }
 
-const SingleCountry:React.FC<SingleCountryProps> = ({country})=> {
+const SingleCountry = forwardRef<HTMLDivElement,SingleCountryProps>(({country, onClick, ...props}, ref)=> {
 const {name,population,region,capital,favorite,flags}= country
     return(
-    <Card sx={{ maxWidth: 345 }}>
+    <Card 
+    ref={ref}//attach ref for draggable
+    onClick={onClick} //keep clickable
+    sx={{ maxWidth: 345 }}
+     {...props} // spread any extra props listeners, attributes
+     >
       <CardHeader
         action={
             <Box>
@@ -47,6 +55,6 @@ const {name,population,region,capital,favorite,flags}= country
       </CardContent>
     </Card>
     )
-}
+})
 
 export default SingleCountry

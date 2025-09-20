@@ -4,8 +4,8 @@ import { useSearchParams,  useRouter} from "next/navigation"
 import { useEffect, useState } from "react"
 import FilterDiv from "./FilterDiv"
 import type { CountryType } from "@/interfaces/CountryType"
-import CountryList from "./CountriesList"
 import useSideBarStore from "@/Zustand/SideBarStore"
+import CountriesList from "./CountriesList"
 
 interface CountriesFilterWrapperProps {
  countries: CountryType[]
@@ -41,7 +41,7 @@ const filteredData = countries.filter((country:any)=>{
   return(
   <>
    <FilterDiv searchValue={searchValue} onSearchChange={setSearchValue} region={region} onRegionChange={setRegion} favorites={favorites} onShowFavorites={setFavorites} />
-   <CountryList countries={filteredData} sideBarOpen={isOpen}/>
+   <CountriesList countries={filteredData} sideBarOpen={isOpen}/>
   </>
    
   )

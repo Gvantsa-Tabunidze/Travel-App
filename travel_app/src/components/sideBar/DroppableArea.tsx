@@ -3,12 +3,29 @@
 import { Box, SvgIcon } from "@mui/material";
 import {useTheme} from '@mui/material/styles'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { useDroppable } from "@dnd-kit/core";
 
-export default function CurrentTrip() {
+
+//Dropable component
+interface UseDroppableArguments {
+  id: string | number;
+  disabled?: boolean;
+  data?: Record<string, any>;
+}
+
+export default function DroppableArea() {
     const theme = useTheme()
+    const {setNodeRef,isOver} = useDroppable({
+      id:'sideBar'
+    })
+
+
   return (
-    <Box sx={{height:'280px', width:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between',alignItems:'center',padding:'18px',  
-    border:`2.5px dashed ${theme.palette.primary.main}`, borderRadius:'12px', backgroundColor:theme.palette.lightGreen}}>
+    <Box 
+    ref={setNodeRef}
+    
+    sx={{height:'280px', width:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between',alignItems:'center',padding:'18px',  
+    border: isOver ? `2.5px dashed ${theme.palette.primary.main}`: `2.5px dashed ${theme.palette.primary.light}`, borderRadius:'12px', backgroundColor:theme.palette.lightGreen}}>
         <div style={{width:'100%'}}>
         <h3>Current Trip</h3>
         </div>

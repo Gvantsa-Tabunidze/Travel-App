@@ -3,6 +3,7 @@ import SingleCountry from "./SingleCountryCard"
 import Grid from "@mui/material/Grid"
 import { Box } from "@mui/material"
 import useSideBarStore from "@/Zustand/SideBarStore"
+import DraggableCountry from "../DndKit/DraggableCountry"
 
 
 
@@ -12,6 +13,10 @@ interface CountriesListProps{
 }
 const CountriesList = ({countries,sideBarOpen}:CountriesListProps)=> {
     const isSidebarOpen = useSideBarStore((state) => state.isOpen)
+
+    const openDiv = ()=>{
+       console.log('pop-up is open')
+    }
 
     return(
         <Box
@@ -23,7 +28,7 @@ const CountriesList = ({countries,sideBarOpen}:CountriesListProps)=> {
                 <Grid container spacing={4}>
                     {countries.map((country)=>
                     <Box key={country.name.common} sx={{display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <SingleCountry  country={country} />
+                      <DraggableCountry country={country} onClick={openDiv} />
                     </Box>
                     )}
                 </Grid>

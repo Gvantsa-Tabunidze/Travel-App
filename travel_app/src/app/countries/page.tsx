@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import fetchCountries from '@/api/axios/fetchCountries';
-import CountrySidebarWrapper from '@/components/common wrappers/CountrySidebarWrapper';
+import CountrySidebarWrapper from '@/components/DndKit/CountrySidebarWrapper';
 
 
 

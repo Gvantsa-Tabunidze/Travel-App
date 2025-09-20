@@ -9,7 +9,7 @@ export default function SavedTrips() {
   return (
     <Box sx={{height:'280px', width:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between',alignItems:'center',padding:'18px'}}>
         <div style={{width:'100%'}}>
-        <h3>Current Trip</h3>
+        <h3>Saved Trips</h3>
         </div>
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', height:'100%', gap:'24px',}}>
             <SvgIcon sx={{fontSize:'4rem', color:theme.palette.text.disabled}}><CalendarTodayOutlinedIcon></CalendarTodayOutlinedIcon></SvgIcon>
