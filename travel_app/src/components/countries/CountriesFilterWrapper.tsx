@@ -7,6 +7,7 @@ import type { CountryType } from "@/interfaces/CountryType"
 import useSideBarStore from "@/Zustand/SideBarStore"
 import CountriesList from "./CountriesList"
 
+
 interface CountriesFilterWrapperProps {
  countries: CountryType[]
 }
@@ -42,6 +43,7 @@ const filteredData = countries.filter((country:any)=>{
   <>
    <FilterDiv searchValue={searchValue} onSearchChange={setSearchValue} region={region} onRegionChange={setRegion} favorites={favorites} onShowFavorites={setFavorites} />
    <CountriesList countries={filteredData} sideBarOpen={isOpen}/>
+   
   </>
    
   )

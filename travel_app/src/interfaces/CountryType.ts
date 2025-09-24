@@ -5,7 +5,6 @@ export interface CountryType {
   capital?: string[];
   flags?: Flags;
   favorite?: boolean; 
-   cca3: string
 }
 
 export interface CountryName{

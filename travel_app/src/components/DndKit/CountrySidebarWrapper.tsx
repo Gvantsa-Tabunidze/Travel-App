@@ -1,10 +1,11 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../sideBar/SideBar'
 import CountriesFilterWrapper from '../countries/CountriesFilterWrapper'
 import { CountryType } from '@/interfaces/CountryType'
-import {DndContext, DragEndEvent} from '@dnd-kit/core';
-import addItem from '../../Zustand/SideBarStore'
+import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useDraggable, useSensor, useSensors} from '@dnd-kit/core';
+import useSideBarStore from '../../Zustand/SideBarStore'
+import SingleCountry from '../countries/SingleCountryCard'
 
 
 interface CountrySidebarWrapperProps {
@@ -12,23 +13,63 @@ interface CountrySidebarWrapperProps {
 }
 
 const CountrySidebarWrapper = ({countries}:CountrySidebarWrapperProps) => {
+  const addItem = useSideBarStore((state) => state.addItem)
+  const [activeCountry, setActiveCountry] = useState<CountryType | null>(null)
+
+  // Configure sensors for better drag detection
+  const sensors = useSensors(useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8, // 8px movement required to start drag
+      },
+    })
+  )
+
+  const handleDragStart = (event:DragStartEvent)=> {
+    console.log('Drag started:', event.active)
+    const {active}=event
+    //Find the country being dragged
+    const draggedCountry = countries.find(c=>c.name.common === active.id)
+    if(draggedCountry){
+      setActiveCountry(draggedCountry)
+    }
+  }
  
   const handleDragEnd = (event:DragEndEvent)=>{
     const {active,over}= event
-    if(over&&over.id==='sideBar'){
-      if(active.data.current){
-        addItem(active.data.current)
+    // Use the data from the draggable
+    if(over && over.id==='sideBar'){
+      if(active.data.current ){
+        console.log('Adding country to sidebar:', active.data.current)
+        addItem(active.data.current as CountryType) 
       }
     }
+    // Reset active country
+    setActiveCountry(null)
   }
+
+
   return (
-    <div>
-      <DndContext onDragEnd={handleDragEnd}>
+    
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
+        
           <Sidebar/>
           <CountriesFilterWrapper countries={countries}/>
+
+          <DragOverlay>
+            {activeCountry ? (
+              <div style={{ 
+            transform: 'rotate(5deg)', 
+            opacity: 0.8,
+            boxShadow: '0 10px 20px rgba(0,0,0,0.3)'
+          }}>
+                <SingleCountry country={activeCountry}  />
+              </div>
+            ) : null}
+          </DragOverlay>
       </DndContext>
-    </div>
+    
   )
 }
 
 export default CountrySidebarWrapper
+

@@ -13,26 +13,34 @@ import { forwardRef } from "react";
 
 interface SingleCountryProps {
   country: CountryType,
-  onClick:()=> void,
-  style?: React.CSSProperties;
 }
 
-const SingleCountry = forwardRef<HTMLDivElement,SingleCountryProps>(({country, onClick, ...props}, ref)=> {
+
+const SingleCountry = ({country}:SingleCountryProps)=> {
 const {name,population,region,capital,favorite,flags}= country
+
+
+
     return(
     <Card 
-    ref={ref}//attach ref for draggable
-    onClick={onClick} //keep clickable
-    sx={{ maxWidth: 345 }}
-     {...props} // spread any extra props listeners, attributes
+    sx={{ 
+      maxWidth: 345,
+      '&:hover': {
+        boxShadow: 6,
+        overflow:'visible',
+        pointerEvents:'auto'
+      }
+    }}
      >
       <CardHeader
         action={
             <Box>
-               <IconButton aria-label="favorites">
+               <IconButton aria-label="favorites"
+               onClick={(e)=>e.stopPropagation()}>
                     <FavoriteBorderOutlinedIcon />
                </IconButton>
-               <IconButton aria-label="addtotrip">
+               <IconButton aria-label="addtotrip"
+               onClick={(e)=>e.stopPropagation()}>
                     <AddOutlinedIcon />
                </IconButton>
 
@@ -55,6 +63,6 @@ const {name,population,region,capital,favorite,flags}= country
       </CardContent>
     </Card>
     )
-})
+}
 
 export default SingleCountry

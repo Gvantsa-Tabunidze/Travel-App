@@ -10,18 +10,21 @@ interface SideBarStoreInterface {
     clearItems: () => void;
 }
 
+
 const useSideBarStore = create<SideBarStoreInterface>((set) => ({
   isOpen: false,
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
   items:[],
   addItem:(country)=> set((state)=>({
-    items: state.items.some((c)=>c.cca3===country.cca3) ? state.items : [...state.items, country],
+    items: state.items.some((c)=>c.name.common===country.name.common) ? state.items : [...state.items, country],
   })),
    removeItem: (id) =>
     set((state) => ({
-      items: state.items.filter((c) => c.cca3 !== id),
+      items: state.items.filter((c) => c.name.common !== id),
     })),
   clearItems: () => set({ items: [] }),
 }))
 
 export default useSideBarStore
+
+
