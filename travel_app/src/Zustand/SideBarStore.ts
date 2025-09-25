@@ -24,8 +24,12 @@ interface SideBarStoreInterface {
 const useSideBarStore = create<SideBarStoreInterface>()(
   persist(
     (set, get) => ({
+      //Sidebar open/close
       isOpen: false,
       toggle: () => set((state) => ({ isOpen: !state.isOpen })),
+
+
+      //Items dropped
       items: [],
       addItem: (country) =>
         set((state) => ({
@@ -38,6 +42,9 @@ const useSideBarStore = create<SideBarStoreInterface>()(
           items: state.items.filter((c) => c.name.common !== nameCommon),
         })),
       clearItems: () => set({ items: [] }),
+
+
+      //Saved trips
       savedTrips: [],
       saveTrip: (tripName) => {
         const items = get().items
@@ -49,7 +56,7 @@ const useSideBarStore = create<SideBarStoreInterface>()(
           countries: items,
           date: new Date().toISOString(),
         }
-
+        
         set((state) => ({
           savedTrips: [...state.savedTrips, newTrip],
           items: [],
