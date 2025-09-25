@@ -14,21 +14,13 @@ function DraggableCountry({country}:DraggablecountryProps){
     data:country
 })
 
-console.log('Draggable ID:', country.name.common)
-console.log('Draggable data:', country)
-
  const style = {
-    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     cursor: isDragging ? 'grabbing' : 'grab',
     zIndex: isDragging ? 1000 : 1,
     position: 'relative' as const,
+    opacity: isDragging ? 0.3 :1,
+    transition: ' opacity 0.2s ease'
   }
-  
-
-  
-
-
-
 
   return (
     <div ref={setNodeRef} style={{...style,  pointerEvents: 'auto', overflow:'visible'}}  {...listeners} {...attributes} >

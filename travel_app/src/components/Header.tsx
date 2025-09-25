@@ -16,7 +16,7 @@ const Header = () => {
           <SvgIcon fontSize='large' color='primary'><LocationOnOutlinedIcon></LocationOnOutlinedIcon></SvgIcon>
           <h3>Travel Planner</h3>
         </Box>
-        <Button sx={{textTransform:'none', fontWeight:600, color:'primary', fontSize:'18px', padding:'4px 20px', borderRadius:'8px'}} 
+        <Button sx={{textTransform:'none', fontWeight:600, backgroundColor:'theme.', fontSize:'18px', padding:'4px 20px', borderRadius:'8px'}} 
         variant='contained'
         onClick={toggle}
         >

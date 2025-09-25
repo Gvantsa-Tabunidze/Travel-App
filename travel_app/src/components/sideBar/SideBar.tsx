@@ -6,6 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import SavedTrips from "./SavedTrips";
 import { Box } from "@mui/material";
 import DroppableArea from "./DroppableArea";
+import TripCard from "./TripCountry";
 
 
 
@@ -13,6 +14,7 @@ import DroppableArea from "./DroppableArea";
 export default function Sidebar() {
   const{isOpen}=useSideBarStore()
   const theme = useTheme();
+  const savedTrips = useSideBarStore((state)=>state.savedTrips)
 
 
   if(!isOpen) return null
@@ -26,7 +28,20 @@ export default function Sidebar() {
       <SideBarHeader />    
       <div style={{padding:'18px'}}>
         <DroppableArea />
-        <SavedTrips />
+        {savedTrips.length > 0 ? (
+          savedTrips.map((trip) => (
+            <TripCard
+              key={trip.id}
+              title={trip.name}
+              countries={trip.countries}
+              date={trip.date}
+              onDelete={() => useSideBarStore.getState().removeTrip(trip.id)}
+              onLoad={() => console.log('Load trip', trip)} />
+          ))
+        ) : (
+            <SavedTrips />
+        )}
+        
       </div>
     </Box>
   );

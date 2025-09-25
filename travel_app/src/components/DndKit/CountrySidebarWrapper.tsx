@@ -14,6 +14,7 @@ interface CountrySidebarWrapperProps {
 
 const CountrySidebarWrapper = ({countries}:CountrySidebarWrapperProps) => {
   const addItem = useSideBarStore((state) => state.addItem)
+  const items = useSideBarStore((state)=>state.items)
   const [activeCountry, setActiveCountry] = useState<CountryType | null>(null)
 
   // Configure sensors for better drag detection
@@ -25,7 +26,7 @@ const CountrySidebarWrapper = ({countries}:CountrySidebarWrapperProps) => {
   )
 
   const handleDragStart = (event:DragStartEvent)=> {
-    console.log('Drag started:', event.active)
+    
     const {active}=event
     //Find the country being dragged
     const draggedCountry = countries.find(c=>c.name.common === active.id)
@@ -36,16 +37,14 @@ const CountrySidebarWrapper = ({countries}:CountrySidebarWrapperProps) => {
  
   const handleDragEnd = (event:DragEndEvent)=>{
     const {active,over}= event
-    // Use the data from the draggable
-    if(over && over.id==='sideBar'){
-      if(active.data.current ){
-        console.log('Adding country to sidebar:', active.data.current)
-        addItem(active.data.current as CountryType) 
-      }
+
+    if(over && over.id === 'sideBar' && active.data.current){
+      addItem(active.data.current as CountryType) 
     }
     // Reset active country
     setActiveCountry(null)
   }
+  
 
 
   return (
@@ -54,18 +53,19 @@ const CountrySidebarWrapper = ({countries}:CountrySidebarWrapperProps) => {
         
           <Sidebar/>
           <CountriesFilterWrapper countries={countries}/>
-
-          <DragOverlay>
-            {activeCountry ? (
-              <div style={{ 
-            transform: 'rotate(5deg)', 
-            opacity: 0.8,
-            boxShadow: '0 10px 20px rgba(0,0,0,0.3)'
-          }}>
-                <SingleCountry country={activeCountry}  />
-              </div>
-            ) : null}
-          </DragOverlay>
+            <DragOverlay dropAnimation={{
+              duration:500,
+              easing:'cubic-bezier(0.18, 0.67, 0.6, 1.22)'
+            }}>
+              {activeCountry ? (
+                <div style={{ 
+              transform: 'rotate(10deg)', 
+              boxShadow: '0 10px 20px rgba(0,0,0,0.8)'
+            }}>
+                  <SingleCountry country={activeCountry}  />
+                </div>
+              ) : null}
+            </DragOverlay>
       </DndContext>
     
   )
