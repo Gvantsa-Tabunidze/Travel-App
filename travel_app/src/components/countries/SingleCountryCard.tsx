@@ -1,25 +1,37 @@
 'use client'
 
 import { CountryType } from "@/interfaces/CountryType"
-import { Box, Card, CardContent, CardHeader, CardMedia, IconButton, Typography } from "@mui/material"
+import { Box, Card, CardContent, CardHeader, CardMedia, IconButton, Typography, useTheme } from "@mui/material"
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Item from "./Item";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CircleIcon from '@mui/icons-material/Circle';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import { forwardRef } from "react";
+import useFavoritesStore from "@/Zustand/FavoritesStore";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+
 
 
 interface SingleCountryProps {
   country: CountryType,
+  
 }
 
 
 const SingleCountry = ({country}:SingleCountryProps)=> {
-const {name,population,region,capital,favorite,flags}= country
+const {name,population,region,capital,flags, favorite}= country
+const toggleFavs = useFavoritesStore((state)=>state.toggleFavorites)
+const favs = useFavoritesStore((state)=>state.favorites)
 
+const toggle =(e:React.MouseEvent<HTMLButtonElement>)=>{
+  e.stopPropagation()
+  toggleFavs(country)
+}
 
+//Check if the card is favorite
+const cardIsFav = favs.some((card)=> card.name.common === country.name.common)
 
     return(
     <Card 
@@ -35,15 +47,10 @@ const {name,population,region,capital,favorite,flags}= country
       <CardHeader
         action={
             <Box>
-               <IconButton aria-label="favorites"
-               onClick={(e)=>e.stopPropagation()}>
-                    <FavoriteBorderOutlinedIcon />
+             
+               <IconButton aria-label="favorites" onClick={toggle}>
+                 {cardIsFav ? <FavoriteIcon color="error"/> :  <FavoriteBorderOutlinedIcon />}
                </IconButton>
-               <IconButton aria-label="addtotrip"
-               onClick={(e)=>e.stopPropagation()}>
-                    <AddOutlinedIcon />
-               </IconButton>
-
             </Box>
         }
       />

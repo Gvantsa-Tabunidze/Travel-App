@@ -97,6 +97,7 @@ const useSideBarStore = create<SideBarStoreInterface>()(
         })),
         
     }),
+    
     {
       name: 'sideBar-store', // localStorage key
     }

@@ -20,7 +20,8 @@ const {isOpen} =  useSideBarStore()
 //Initialize filters from URL
 const [searchValue, setSearchValue]= useState(searchParams.get('search') || '')
 const [region, setRegion] = useState(searchParams.get('region') || 'All')
-const [favorites, setFavorites] = useState(searchParams.get('favorites') === 'true')
+const [favorites, setFavorites] = useState(searchParams.get('favorites') || '')
+
 
 //Setting filter queries into url if something changes in children.
 useEffect(()=> {
@@ -38,6 +39,14 @@ const filteredData = countries.filter((country:any)=>{
   if(favorites && !country.favorite) return false
   return true
 })
+
+//read LocalStorage
+useEffect(()=>{
+  const storedFavs= JSON.parse(localStorage.getItem('favorites') || '[]')
+  console.log(storedFavs)
+},[])
+
+
 
   return(
   <>

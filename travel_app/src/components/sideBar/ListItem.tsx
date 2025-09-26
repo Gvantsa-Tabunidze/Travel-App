@@ -2,7 +2,7 @@
 
 import { Avatar, Box, Icon, IconButton, Typography } from "@mui/material";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+
 
 
 interface ListItemProps {
@@ -26,25 +26,8 @@ export default function ListItem({name,region,flags,onDelete}:ListItemProps) {
         transition: "all 0.2s",
       }}
     >
-      {/* Left side: drag handle + flag + info */}
+     
       <Box display="flex" alignItems="center" gap={1.5}>
-        {/* Drag Handle */}
-        <Box
-          role="button"
-          tabIndex={0}
-          aria-roledescription="sortable"
-          sx={{
-            cursor: "grab",
-            p: 0.5,
-            borderRadius: 1,
-            color: "grey.400",
-            "&:hover": { color: "grey.600", bgcolor: "grey.200" },
-            "&:active": { cursor: "grabbing" },
-          }}
-        >
-          <DragIndicatorIcon size='small' />
-        </Box>
-
         {/* Flag */}
         <Avatar
           src={flags}
@@ -79,7 +62,7 @@ export default function ListItem({name,region,flags,onDelete}:ListItemProps) {
           "&:hover": { color: "error.dark", bgcolor: "error.lighter" },
         }}
       > 
-        <DeleteOutlinedIcon size='small'/>
+        <DeleteOutlinedIcon />
        </IconButton>
     </Box>
     )

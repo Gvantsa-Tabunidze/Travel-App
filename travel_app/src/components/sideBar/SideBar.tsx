@@ -24,11 +24,10 @@ export default function Sidebar() {
     return (
     <Box sx={{ backgroundColor: theme.palette.background.paper, 
       maxWidth:'28vw', width:'28vw',  height: '100vh', position: 'fixed', 
-      right: 0, top: 0,  boxShadow: '0 0 10px rgba(0,0,0,0.2)',  display: 'flex',
-        flexDirection: 'column'}}
+      right: 0, top: 0,  boxShadow: '0 0 10px rgba(0,0,0,0.2)',  display: 'flex', flexDirection: 'column'}}
     >
       <SideBarHeader />    
-      <div style={{padding:'18px'}}>
+      <div style={{padding:'18px', flex:1, overflowY:'auto'}}>
         <DroppableArea />
         {savedTrips.length > 0 ? (
           savedTrips.map((trip) => (

@@ -84,7 +84,25 @@ const theme = createTheme({
             default: '#fafafa',
             paper: '#fff'
             },
-            lightGreen:'#e0f2f1'
+        error:{
+            main:'#f50057',
+            light:'#f8bbd0',
+            dark:'#880e4f',
+            contrastText:'#fce4ec'
+        },
+        warning:{
+            main:'#ff9100',
+            light:'#ffe0b2',
+            dark:'#e65100',
+            contrastText:'#fff3e0'
+        },
+        success:{
+            main:'#00c853',
+            light:'#c8e6c9',
+            dark:'#1b5e20',
+            contrastText:'#e8f5e9'
+        },
+        lightGreen:'#e0f2f1'
     }
 })
 
