@@ -4,7 +4,7 @@ export interface CountryType {
   population: number;
   capital?: string[];
   flags?: Flags;
-  favorite?: boolean; 
+
 }
 
 export interface CountryName{

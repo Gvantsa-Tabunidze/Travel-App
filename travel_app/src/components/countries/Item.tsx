@@ -9,7 +9,7 @@ export interface ItemProps{
 
 const Item:React.FC<ItemProps> = ({icon, children})=> {
  return(
-    <ListItem alignItems='flex-start'>
+    <ListItem sx={{display:'flex', justifyContent:'flex-start'}}>
         <ListItemIcon>
             {icon}
         </ListItemIcon>

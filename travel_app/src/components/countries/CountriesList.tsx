@@ -5,6 +5,7 @@ import useSideBarStore from "@/Zustand/SideBarStore"
 import DraggableCountry from "../DndKit/DraggableCountry"
 import useDivOpen from "@/Zustand/DivOpenStore"
 import { useState } from "react"
+import { wrap } from "module"
 
 
 
@@ -26,23 +27,39 @@ const CountriesList = ({countries,sideBarOpen}:CountriesListProps)=> {
     }
 
     return(
-        <Box
-            sx={{
-                transition: 'margin-right 0.3s ease',
-                marginRight: isSidebarOpen ? '25%' : '0',
-                overflow:'visible',
-            }}>
-                <Grid container spacing={4}>
+
+                <Box sx={{ display: 'flex', flexWrap:'wrap', gap:3, px: 3, py: 3, 
+                justifyContent:'space-between', boxSizing: 'border-box',
+                 paddingLeft: {
+                    xs:'200px',                   
+                    sm: '200px',
+                    md:'200px', 
+                    lg:'200px', 
+                    xl:'200px'
+                 },
+                 paddingRight: {
+                    xs:'200px',
+                    sm:'200px',
+                    md: isSidebarOpen ? '360px' : '200px', 
+                    lg: isSidebarOpen ? '500px' : '200px', 
+                    xl:isSidebarOpen ? '520px' : '200px', 
+                 },
+
+                }} >
                     {countries.map((country)=>
-                    <Box key={country.name.common} sx={{display: 'flex', flexDirection: 'column', height: '100%', overflow:'visible', pointerEvents:'auto' }} onClick={()=>openPopUp(country)}>
-                      <DraggableCountry country={country}/>
-                    </Box>
+               
+                        <Box key={country.name.common}  onClick={()=>openPopUp(country)}>
+                            <DraggableCountry country={country}/>
+                        </Box>
                     )}
-                </Grid>
+
+
                 {divIsOpen ? 
                 (<div style={{background:'violet', height:'200px', width:'200px', position:'fixed', top:'50%', left:'50%', 
                 transform:'translate(-50%, -50%', zIndex:9999}}>{selectedCard?.capital}</div>) : null}
-        </Box>
+                </Box>
+                
+      
     )
 }
  
@@ -50,3 +67,5 @@ const CountriesList = ({countries,sideBarOpen}:CountriesListProps)=> {
 
 
 export default CountriesList
+
+

@@ -10,20 +10,21 @@ import CircleIcon from '@mui/icons-material/Circle';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import useFavoritesStore from "@/Zustand/FavoritesStore";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import useSideBarStore from "@/Zustand/SideBarStore";
 
 
 
 
 interface SingleCountryProps {
   country: CountryType,
-  
 }
 
 
 const SingleCountry = ({country}:SingleCountryProps)=> {
-const {name,population,region,capital,flags, favorite}= country
+const {name,population,region,capital,flags}= country
 const toggleFavs = useFavoritesStore((state)=>state.toggleFavorites)
 const favs = useFavoritesStore((state)=>state.favorites)
+const isSidebarOpen = useSideBarStore((state) => state.isOpen)
 
 const toggle =(e:React.MouseEvent<HTMLButtonElement>)=>{
   e.stopPropagation()
@@ -36,7 +37,7 @@ const cardIsFav = favs.some((card)=> card.name.common === country.name.common)
     return(
     <Card 
     sx={{ 
-      maxWidth: 345,
+      width: '320px',
       '&:hover': {
         boxShadow: 6,
         overflow:'visible',
@@ -56,12 +57,12 @@ const cardIsFav = favs.some((card)=> card.name.common === country.name.common)
       />
       <CardMedia
         component="img"
-        height="200"
+        height="160"
         image={flags?.png}
         alt={`${name} flag`}
       />
       <CardContent>  
-        <Typography variant="h3" sx={{ color: 'text.primary' }}>
+        <Typography variant="h6" sx={{ color: 'text.primary' }} noWrap>
          {name.official}
         </Typography>
          <Item icon={<LocationOnOutlinedIcon/>} children={region} />
@@ -73,3 +74,6 @@ const cardIsFav = favs.some((card)=> card.name.common === country.name.common)
 }
 
 export default SingleCountry
+
+
+
