@@ -9,11 +9,11 @@ interface TripCardProps {
   countries: CountryType[];
   date: string;
   onDelete: () => void;
-  onLoad?
+  onEdit?
   : () => void;
 }
 
-export default function TripCard({ title, countries, date, onDelete, onLoad }: TripCardProps) {
+export default function TripCard({ title, countries, date, onDelete, onEdit }: TripCardProps) {
   const theme = useTheme();
 
   return (
@@ -69,9 +69,9 @@ export default function TripCard({ title, countries, date, onDelete, onLoad }: T
           backgroundColor: theme.palette.primary.main,
           '&:hover': { backgroundColor: theme.palette.primary.dark },
         }}
-        onClick={onLoad}
+        onClick={onEdit}
       >
-        Load Trip
+        Edit Trip
       </Button>
     </Box>
   );

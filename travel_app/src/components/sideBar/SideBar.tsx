@@ -15,6 +15,8 @@ export default function Sidebar() {
   const{isOpen}=useSideBarStore()
   const theme = useTheme();
   const savedTrips = useSideBarStore((state)=>state.savedTrips)
+   const removeTrip = useSideBarStore((state) => state.removeTrip)
+  const editTrip = useSideBarStore((state) => state.editTrip)
 
 
   if(!isOpen) return null
@@ -35,8 +37,8 @@ export default function Sidebar() {
               title={trip.name}
               countries={trip.countries}
               date={trip.date}
-              onDelete={() => useSideBarStore.getState().removeTrip(trip.id)}
-              onLoad={() => console.log('Load trip', trip)} />
+              onDelete={() =>removeTrip(trip.id)}
+              onEdit={() => editTrip(trip.id)} />
           ))
         ) : (
             <SavedTrips />

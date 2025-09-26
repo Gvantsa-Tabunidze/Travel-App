@@ -18,7 +18,10 @@ interface SideBarStoreInterface {
   clearItems: () => void
   savedTrips: Trip[]
   saveTrip: (tripName: string) => void
-  removeTrip: (id: number) => void
+  removeTrip: (id: number) => void,
+  editTrip:(id:number)=>void,
+  currentTripId:number | null,
+  currentTripName:string
 }
 
 const useSideBarStore = create<SideBarStoreInterface>()(
@@ -45,27 +48,54 @@ const useSideBarStore = create<SideBarStoreInterface>()(
 
 
       //Saved trips
+      currentTripId: null,
+      currentTripName: '',
       savedTrips: [],
+      editTrip:(id)=>{
+          const tripsToLoad = get().savedTrips.find((trip)=>trip.id === id)
+          if(tripsToLoad){
+            set({
+              items: tripsToLoad.countries,
+              currentTripId:id,
+              currentTripName:tripsToLoad.name
+            })
+          }
+        },
       saveTrip: (tripName) => {
         const items = get().items
-        if (items.length === 0) return
+        const currentId=get().currentTripId
+    
 
-        const newTrip: Trip = {
+        if (items.length === 0) return
+        
+        console.log(currentId)
+        if(currentId !== null){
+          set((state)=>({savedTrips:state.savedTrips.map((trip)=>
+              trip.id === currentId ? {...trip, name:tripName, countries: items, date:new Date().toISOString()} : trip),
+          items: [],
+          currentTripId: null,
+          currentTripName: ''
+          }))
+        } else {
+          const newTrip: Trip = {
           id: Date.now(),
           name: tripName,
           countries: items,
           date: new Date().toISOString(),
         }
         
-        set((state) => ({
-          savedTrips: [...state.savedTrips, newTrip],
-          items: [],
-        }))
+          set((state) => ({
+            savedTrips: [...state.savedTrips, newTrip],
+            items: [],
+          }))
+        }
+
       },
       removeTrip: (id) =>
         set((state) => ({
           savedTrips: state.savedTrips.filter((trip) => trip.id !== id),
         })),
+        
     }),
     {
       name: 'sideBar-store', // localStorage key

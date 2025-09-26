@@ -5,7 +5,7 @@ import ListItem from "./ListItem"
 import useSideBarStore from "@/Zustand/SideBarStore"
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material"
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface DroppedItemsListProps{
     droppedCountries: CountryType[],
@@ -16,8 +16,10 @@ export default function DroppedList({droppedCountries}:DroppedItemsListProps){
   const removeItem = useSideBarStore((state) => state.removeItem)
   const clearAll = useSideBarStore((state) => state.clearItems)
   const saveTrip = useSideBarStore((state)=>state.saveTrip)
+  const currentTripName = useSideBarStore((state)=>state.currentTripName)  
+
   const [isClicked, setIsClicked] = useState(false)
-  const [TripValue, setTripValue] = useState('')
+  const [TripValue, setTripValue] = useState(currentTripName)
   
 
 const onCancel =()=>{
@@ -28,6 +30,10 @@ const onCancel =()=>{
 const onSave = ()=>{
     saveTrip(TripValue)
 }
+
+useEffect(() => {
+  setTripValue(currentTripName); // prefill when editing
+}, [currentTripName]);
 
     return(
         <Box  sx={{minHeight:'280px', width:'100%'}}>
